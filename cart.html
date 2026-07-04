@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart</title>
+</head>
+<body>
+
+<h1>Keranjang</h1>
+
+<div id="cart"></div>
+
+<script>
+
+let cart =
+JSON.parse(
+localStorage.getItem(
+"cart"
+)) || [];
+
+tampil();
+
+function tampil(){
+
+let data = "";
+
+let subtotal = 0;
+
+cart.forEach(function(c,i){
+
+subtotal +=
+c.harga * c.qty;
+
+data += `
+<div>
+
+<h3>${c.nama}</h3>
+
+<p>
+Toko :
+${c.toko}
+</p>
+
+<p>
+Rp${c.harga}
+</p>
+
+<input
+type="number"
+value="${c.qty}"
+onchange="
+ubah(${i},
+this.value)
+">
+
+<button
+onclick="
+hapus(${i})
+">
+Hapus
+</button>
+
+</div>
+<hr>
+`;
+
+});
+
+data +=
+"<h2>Subtotal : Rp"+
+subtotal+
+"</h2>";
+
+document.getElementById(
+"cart"
+).innerHTML =
+data;
+
+}
+
+function ubah(i,q){
+
+cart[i].qty =
+Number(q);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+tampil();
+
+}
+
+function hapus(i){
+
+cart.splice(i,1);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+tampil();
+
+}
+
+</script>
+
+</body>
+</html>

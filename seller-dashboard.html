@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard Seller</title>
+</head>
+<body>
+
+<h1>Dashboard Seller</h1>
+
+<h2 id="toko"></h2>
+
+<h3>Tambah Produk</h3>
+
+<input type="text"
+id="nama"
+placeholder="Nama Produk">
+
+<br><br>
+
+<input type="number"
+id="harga"
+placeholder="Harga">
+
+<br><br>
+
+<input type="number"
+id="stok"
+placeholder="Stok">
+
+<br><br>
+
+<textarea
+id="deskripsi"
+placeholder="Deskripsi">
+</textarea>
+
+<br><br>
+
+<button onclick="tambahProduk()">
+Tambah Produk
+</button>
+
+<hr>
+
+<h2>Daftar Produk</h2>
+
+<div id="produk"></div>
+
+<script>
+
+document.getElementById(
+"toko"
+).innerHTML =
+"🏪 " +
+localStorage.getItem(
+"storeName"
+);
+
+let products =
+JSON.parse(
+localStorage.getItem(
+"products"
+)) || [];
+
+tampil();
+
+function tambahProduk(){
+
+    let nama =
+    document.getElementById(
+    "nama"
+    ).value;
+
+    let harga =
+    document.getElementById(
+    "harga"
+    ).value;
+
+    let stok =
+    document.getElementById(
+    "stok"
+    ).value;
+
+    let deskripsi =
+    document.getElementById(
+    "deskripsi"
+    ).value;
+
+    let produk = {
+        nama,
+        harga,
+        stok,
+        deskripsi,
+        toko:
+        localStorage.getItem(
+        "storeName"
+        )
+    };
+
+    products.push(produk);
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+    tampil();
+}
+
+function tampil(){
+
+    let data = "";
+
+    products.forEach(
+    function(p,index){
+
+        data += `
+        <div style="
+        border:1px solid black;
+        margin:10px;
+        padding:10px;
+        ">
+
+        <h3>${p.nama}</h3>
+
+        <p>Rp${p.harga}</p>
+
+        <p>Stok :
+        ${p.stok}</p>
+
+        <button
+        onclick="hapus(${index})">
+        Hapus
+        </button>
+
+        </div>
+        `;
+    });
+
+    document.getElementById(
+    "produk"
+    ).innerHTML =
+    data;
+}
+
+function hapus(index){
+
+    products.splice(index,1);
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+    tampil();
+}
+
+</script>
+
+</body>
+</html>

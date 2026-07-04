@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wallet</title>
+</head>
+<body>
+
+<h1>Wallet Buyer</h1>
+
+<h2 id="saldo"></h2>
+
+<input type="number"
+id="topup"
+placeholder="Jumlah Top Up">
+
+<button onclick="topup()">
+Top Up
+</button>
+
+<h3>Riwayat Top Up</h3>
+
+<ul id="history"></ul>
+
+<script>
+
+let balance =
+localStorage.getItem("balance") || 0;
+
+let history =
+JSON.parse(
+localStorage.getItem(
+"walletHistory"
+)) || [];
+
+tampil();
+
+function topup(){
+
+let jumlah =
+Number(
+document.getElementById(
+"topup"
+).value
+);
+
+balance =
+Number(balance) + jumlah;
+
+localStorage.setItem(
+"balance",
+balance
+);
+
+history.push(
+"Top Up Rp" + jumlah
+);
+
+localStorage.setItem(
+"walletHistory",
+JSON.stringify(history)
+);
+
+tampil();
+}
+
+function tampil(){
+
+document.getElementById(
+"saldo"
+).innerHTML =
+"Saldo : Rp" + balance;
+
+let data = "";
+
+history.forEach(function(h){
+data += "<li>"+h+"</li>";
+});
+
+document.getElementById(
+"history"
+).innerHTML =
+data;
+}
+
+</script>
+
+</body>
+</html>

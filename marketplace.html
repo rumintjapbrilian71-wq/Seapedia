@@ -1,0 +1,62 @@
+<div class="card">
+    <h2>Klappertaart</h2>
+    <p>🏪 Oleh-Oleh Minahasa</p>
+    <p>Rp35.000</p>
+
+    <button onclick="
+    addCart(
+        'Klappertaart',
+        35000,
+        'Oleh-Oleh Minahasa'
+    )">
+    Tambah ke Cart
+    </button>
+</div>
+
+<div class="card">
+    <h2>Bika Ambon</h2>
+    <p>🏪 Oleh-Oleh Batak</p>
+    <p>Rp40.000</p>
+
+    <button onclick="
+    addCart(
+        'Bika Ambon',
+        40000,
+        'Oleh-Oleh Batak'
+    )">
+    Tambah ke Cart
+    </button>
+</div>
+<script>
+function addCart(nama, harga, toko){
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+    if (
+        cart.length > 0 &&
+        cart[0].toko !== toko
+    ) {
+        alert(
+        "Cart hanya boleh berisi produk dari satu toko!"
+        );
+        return;
+    }
+
+    cart.push({
+        nama: nama,
+        harga: harga,
+        toko: toko,
+        qty: 1
+    });
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    alert("Produk berhasil ditambahkan!");
+}
+</script>

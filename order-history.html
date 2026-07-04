@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Riwayat Pesanan</title>
+</head>
+<body>
+
+<h1>Riwayat Pesanan</h1>
+
+<div id="history"></div>
+
+<script>
+
+let orders =
+JSON.parse(
+localStorage.getItem(
+"orders"
+)) || [];
+
+let data = "";
+
+orders.forEach(function(o){
+
+data += `
+<div>
+
+<p>
+Status :
+${o.status}
+</p>
+
+<p>
+Total :
+Rp${o.total}
+</p>
+
+<hr>
+
+</div>
+`;
+
+});
+
+document.getElementById(
+"history"
+).innerHTML =
+data;
+
+</script>
+
+</body>
+</html>

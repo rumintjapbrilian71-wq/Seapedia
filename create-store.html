@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buat Toko</title>
+</head>
+<body>
+
+<h1>Buat Toko</h1>
+
+<input type="text" id="storeName"
+placeholder="Nama Toko">
+
+<button onclick="saveStore()">
+Simpan
+</button>
+
+<p id="message"></p>
+
+<script>
+
+function saveStore(){
+
+    let name =
+    document.getElementById("storeName").value;
+
+    if(name==""){
+        alert("Nama toko wajib diisi");
+        return;
+    }
+
+    localStorage.setItem(
+        "storeName",
+        name
+    );
+
+    document.getElementById(
+        "message"
+    ).innerHTML =
+    "Toko berhasil dibuat!";
+}
+
+</script>
+
+</body>
+</html>

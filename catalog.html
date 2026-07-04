@@ -1,0 +1,49 @@
+<h1>Produk SEAPEDIA</h1>
+
+<div id="catalog"></div>
+
+<script>
+
+let products =
+JSON.parse(
+localStorage.getItem(
+"products"
+)) || [];
+
+let data = "";
+
+products.forEach(function(p){
+
+data += `
+<div
+style="
+border:1px solid gray;
+padding:20px;
+margin:20px;
+">
+
+<h2>${p.nama}</h2>
+
+<p>
+🏪 ${p.toko}
+</p>
+
+<p>
+Rp${p.harga}
+</p>
+
+<p>
+${p.deskripsi}
+</p>
+
+</div>
+`;
+
+});
+
+document.getElementById(
+"catalog"
+).innerHTML =
+data;
+
+</script>

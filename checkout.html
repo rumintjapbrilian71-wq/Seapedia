@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Checkout</title>
+</head>
+<body>
+
+<h1>Checkout</h1>
+
+<select id="delivery">
+<option value="5000">
+Regular
+</option>
+
+<option value="10000">
+Next Day
+</option>
+
+<option value="15000">
+Instant
+</option>
+</select>
+
+<button onclick="checkout()">
+Checkout
+</button>
+
+<div id="summary"></div>
+
+<script>
+
+let cart =
+JSON.parse(
+localStorage.getItem(
+"cart"
+)) || [];
+
+let subtotal = 0;
+
+cart.forEach(function(c){
+
+subtotal +=
+c.harga * c.qty;
+
+});
+
+document.getElementById(
+"summary"
+).innerHTML =
+"Subtotal : Rp" +
+subtotal;
+
+function checkout(){
+
+let fee =
+Number(
+document.getElementById(
+"delivery"
+).value
+);
+
+let ppn =
+subtotal * 0.12;
+
+let total =
+subtotal +
+fee +
+ppn;
+
+let balance =
+Number(
+localStorage.getItem(
+"balance"
+)) || 0;
+
+if(balance < total){
+
+alert(
+"Saldo tidak cukup!"
+);
+
+return;
+}
+
+balance =
+balance - total;
+
+localStorage.setItem(
+"balance",
+balance
+);
+
+let orders =
+JSON.parse(
+localStorage.getItem(
+"orders"
+)) || [];
+
+orders.push({
+
+tanggal:
+new Date(),
+
+subtotal:
+subtotal,
+
+ongkir:
+fee,
+
+ppn:
+ppn,
+
+total:
+total,
+
+status:
+"Sedang Dikemas",
+
+items:
+cart
+
+});
+
+localStorage.setItem(
+"orders",
+JSON.stringify(orders)
+);
+
+localStorage.removeItem(
+"cart"
+);
+
+alert(
+"Checkout berhasil"
+);
+
+}
+
+</script>
+
+</body>
+</html>

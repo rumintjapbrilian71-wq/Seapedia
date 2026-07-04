@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Alamat</title>
+</head>
+<body>
+
+<h1>Alamat Pengiriman</h1>
+
+<textarea
+id="alamat"
+rows="5"
+cols="40">
+</textarea>
+
+<br><br>
+
+<button onclick="simpan()">
+Simpan
+</button>
+
+<script>
+
+document.getElementById(
+"alamat"
+).value =
+localStorage.getItem(
+"alamat"
+) || "";
+
+function simpan(){
+
+localStorage.setItem(
+"alamat",
+document.getElementById(
+"alamat"
+).value
+);
+
+alert(
+"Alamat tersimpan"
+);
+
+}
+
+</script>
+
+</body>
+</html>
